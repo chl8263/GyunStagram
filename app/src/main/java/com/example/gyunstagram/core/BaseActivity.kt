@@ -50,7 +50,7 @@ abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatA
 
         viewDataBinding = DataBindingUtil.setContentView(this , layoutResourceId)
 
-        initStartView()
+            initStartView()
         initDataBinding()
         initAfterBinding()
     }

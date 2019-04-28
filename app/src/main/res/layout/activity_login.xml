@@ -36,6 +36,7 @@
                 android:layout_marginRight="20dp"
             >
                 <EditText
+                        android:text="@={viewModel._emailText}"
                         android:id="@+id/email_editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -49,6 +50,7 @@
                     android:layout_marginRight="20dp"
             >
                 <EditText
+                        android:text="@={viewModel._passwordText}"
                         android:id="@+id/password_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -57,6 +59,7 @@
 
 
             <Button
+                    android:onClick="@{()->viewModel.signInAndSignUp()}"
                     android:id="@+id/email_login_button"
                     android:text="@string/signin_email"
                     android:theme="@style/ButtonStyle"
