@@ -1,23 +1,12 @@
 package com.example.gyunstagram.viewModel
 
-import android.content.Intent
-import android.provider.Settings.System.getString
-import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
-import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseViewModel
-import com.example.gyunstagram.util.MainActivityStarterUserCase
-import com.example.gyunstagram.util.toast
-import com.example.gyunstagram.view.MainActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.example.gyunstagram.util.MainActivityStarterUseCase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginViewModel(val starter : MainActivityStarterUserCase) : BaseViewModel(){
+class LoginViewModel(val starter : MainActivityStarterUseCase) : BaseViewModel(){
 
     val auth = FirebaseAuth.getInstance()
     /*lateinit var googleSignInClient : GoogleSignInClient

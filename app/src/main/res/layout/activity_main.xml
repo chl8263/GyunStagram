@@ -44,7 +44,7 @@
                 android:layout_below="@id/toolbar_division"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-            android:layout_above="@id/navigation_division"
+                android:layout_above="@id/navigation_division"
         >
 
         </FrameLayout>
@@ -61,7 +61,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-            app:menu="@menu/navigation">
+                app:menu="@menu/navigation">
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     </RelativeLayout>
