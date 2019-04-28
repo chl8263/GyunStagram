@@ -13,4 +13,6 @@ class MainActivityStarterUserCase (private val context: Context){
     fun showToast( msg: String){
         context.toast(msg)
     }
+
+    fun getContext() = context
 }

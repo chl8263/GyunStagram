@@ -17,9 +17,6 @@ var mainActivityStarter = module {
 }
 
 var viewModelPart = module {
-    /*viewModel {
-        BaseViewModel()
-    }*/
     viewModel {
         LoginViewModel(get())
     }
