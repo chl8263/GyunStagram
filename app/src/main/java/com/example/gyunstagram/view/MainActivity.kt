@@ -1,7 +1,8 @@
-package com.example.gyunstagram
+package com.example.gyunstagram.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.gyunstagram.R
 
 class MainActivity : AppCompatActivity() {
 
