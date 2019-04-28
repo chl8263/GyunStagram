@@ -7,6 +7,7 @@ import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityMainBinding
 import com.example.gyunstagram.util.toast
 import com.example.gyunstagram.viewModel.LoginViewModel
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
@@ -23,7 +24,11 @@ class LoginActivity : BaseActivity<ActivityMainBinding , LoginViewModel>() {
     override val viewModel: LoginViewModel by viewModel()
 
     override fun initStartView() {
+        FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
+        email_login_button.setOnClickListener {
+            signinAndSingUp()
+        }
     }
 
     override fun initDataBinding() {
