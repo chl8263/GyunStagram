@@ -1,13 +1,29 @@
 package com.example.gyunstagram.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.gyunstagram.R
+import com.example.gyunstagram.core.BaseActivity
+import com.example.gyunstagram.databinding.ActivityMainBinding
+import com.example.gyunstagram.viewModel.LoginViewModel
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity<ActivityMainBinding , LoginViewModel>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+
+    override val layoutResourceId: Int
+        get() = R.layout.activity_login
+
+    override val viewModel: LoginViewModel by viewModel()
+
+
+
+    override fun initStartView() {
+    }
+
+    override fun initDataBinding() {
+    }
+
+    override fun initAfterBinding() {
     }
 }

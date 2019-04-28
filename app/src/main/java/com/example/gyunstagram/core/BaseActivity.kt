@@ -6,18 +6,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
 abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatActivity(){
-    lateinit var viewDataBinding : T
+    open lateinit var viewDataBinding : T
 
     /**
      * setContentView로 호출할 Layout의 리소스 Id.
      * ex) R.layout.activity_sbs_main
      */
-    abstract val layoutResourceId : Int
+    open abstract val layoutResourceId : Int
 
     /**
      * viewModel 로 쓰일 변수.
      */
-    abstract val viewModel : R
+    open abstract val viewModel : R
 
 
     /**
