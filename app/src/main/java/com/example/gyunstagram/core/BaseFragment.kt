@@ -28,7 +28,7 @@ abstract class BaseFragment<T : ViewDataBinding , R : BaseViewModel> : Fragment(
      * 뷰나 액티비티의 속성 등을 초기화.
      * ex) 리사이클러뷰, 툴바, 드로어뷰..
      */
-    abstract fun initStartView()
+    abstract fun initStartView(viwe : View)
 
     /**
      * 두번째로 호출.
@@ -49,8 +49,12 @@ abstract class BaseFragment<T : ViewDataBinding , R : BaseViewModel> : Fragment(
 
         viewDataBinding = DataBindingUtil.inflate(inflater,layoutResourceId,container,false)
 
-        initStartView()
+        val view = viewDataBinding.root
+
+        initStartView(view)
         initDataBinding()
         initAfterBinding()
+
+        return view
     }
 }

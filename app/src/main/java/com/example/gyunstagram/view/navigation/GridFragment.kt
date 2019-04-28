@@ -8,7 +8,7 @@ import com.example.gyunstagram.databinding.FragmentDetailBinding
 import com.example.gyunstagram.viewModel.FragmentDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailViewModel>(){
+class GridFragment : BaseFragment<FragmentDetailBinding,FragmentDetailViewModel>(){
 
 
     override val layoutResourceId: Int
