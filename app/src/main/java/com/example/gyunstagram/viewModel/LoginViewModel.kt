@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginViewModel(val starter : MainActivityStarterUserCase) : BaseViewModel(){
 
     val auth = FirebaseAuth.getInstance()
-    lateinit var googleSignInClient : GoogleSignInClient
-    val GOOGLE_LOGIN_CODE = 9001
+    /*lateinit var googleSignInClient : GoogleSignInClient
+    val GOOGLE_LOGIN_CODE = 9001*/
 
     var _emailText = MutableLiveData<String>()
     var _passwordText = MutableLiveData<String>()
