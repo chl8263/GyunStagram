@@ -1,5 +1,6 @@
 package com.example.gyunstagram.view.navigation
 
+import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.gyunstagram.R
@@ -15,6 +16,15 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
         get() = R.layout.fragment_detail
 
     override val viewModel: FragmentDetailViewModel by viewModel()
+
+    companion object {
+        fun newInstance(): DetailViewFragment {
+            val args = Bundle()
+            val fragment = DetailViewFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun initStartView(viwe: View) {
 

@@ -1,5 +1,6 @@
 package com.example.gyunstagram.view.navigation
 
+import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.gyunstagram.R
@@ -16,6 +17,15 @@ class AlarmFragment : BaseFragment<FragmentDetailBinding,FragmentAlarmViewModel>
         get() = R.layout.fragment_alarm
 
     override val viewModel: FragmentAlarmViewModel by viewModel()
+
+    companion object {
+        fun newInstance(): AlarmFragment {
+            val args = Bundle()
+            val fragment = AlarmFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun initStartView(viwe: View) {
 

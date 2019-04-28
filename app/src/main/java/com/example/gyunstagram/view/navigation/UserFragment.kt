@@ -1,5 +1,6 @@
 package com.example.gyunstagram.view.navigation
 
+import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.gyunstagram.R
@@ -16,6 +17,15 @@ class UserFragment : BaseFragment<FragmentDetailBinding,FragmentUserViewModel>()
         get() = R.layout.fragment_user
 
     override val viewModel: FragmentUserViewModel by viewModel()
+
+    companion object {
+        fun newInstance(): UserFragment {
+            val args = Bundle()
+            val fragment = UserFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun initStartView(viwe: View) {
 

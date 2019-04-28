@@ -7,7 +7,6 @@ import com.example.gyunstagram.view.MainActivity
 
 class MainActivityStarterUseCase (private val context: Context){
     fun showMainActivity(){
-        Log.e("a","a")
         context.startActivity(Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
     fun showToast( msg: String){

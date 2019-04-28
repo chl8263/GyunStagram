@@ -23,6 +23,7 @@ abstract class BaseFragment<T : ViewDataBinding , R : BaseViewModel> : Fragment(
      */
     abstract val viewModel : R
 
+
     /**
      * 레이아웃을 띄운 직후 호출.
      * 뷰나 액티비티의 속성 등을 초기화.

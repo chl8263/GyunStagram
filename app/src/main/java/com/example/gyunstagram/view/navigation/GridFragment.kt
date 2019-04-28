@@ -1,5 +1,6 @@
 package com.example.gyunstagram.view.navigation
 
+import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.gyunstagram.R
@@ -16,6 +17,15 @@ class GridFragment : BaseFragment<FragmentDetailBinding,FragmentGridViewModel>()
         get() = R.layout.fragment_grid
 
     override val viewModel: FragmentGridViewModel by viewModel()
+
+    companion object {
+        fun newInstance(): GridFragment {
+            val args = Bundle()
+            val fragment = GridFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun initStartView(viwe: View) {
 
