@@ -21,6 +21,9 @@ var viewModelPart = module {
         MainViewModel()
     }
     viewModel {
+        AddPthotoViewModel()
+    }
+    viewModel {
         FragmentDetailViewModel()
     }
     viewModel {
