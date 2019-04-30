@@ -1,9 +1,5 @@
 package com.example.gyunstagram.view
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.gyunstagram.R
@@ -68,6 +64,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             }
 
             else -> false
+
         }
         return@OnNavigationItemSelectedListener false
     }

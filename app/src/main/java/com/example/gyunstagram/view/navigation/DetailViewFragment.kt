@@ -27,7 +27,7 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
     }
 
     override fun initStartView(viwe: View) {
-
+        viewDataBinding.viewModel =  viewModel
     }
 
     override fun initDataBinding() {
