@@ -1,11 +1,11 @@
-package com.example.gyunstagram.util
+package com.example.gyunstagram.usecase
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import com.example.gyunstagram.util.toast
 import com.example.gyunstagram.view.MainActivity
 
-class MainActivityStarterUseCase (private val context: Context){
+class ActivityStarterUseCase (private val context: Context){
     fun showMainActivity(){
         context.startActivity(Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
