@@ -11,6 +11,7 @@ import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityAddPhotoBinding
 import com.example.gyunstagram.util.toast
+import com.example.gyunstagram.view.CustomProgressDialog
 import com.example.gyunstagram.viewModel.AddPthotoViewModel
 import com.example.gyunstagram.viewModel.LoginViewModel
 import com.example.gyunstagram.vo.ContentDTO
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_add_photo.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,10 +29,12 @@ import java.util.*
 class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel>() {
 
     var PICK_IMAGE_FROM_ALBUM = 0
-    lateinit var storage : FirebaseStorage
-    lateinit var photoUri : Uri
-    lateinit var auth : FirebaseAuth
-    lateinit var firestore: FirebaseFirestore
+    private lateinit var storage : FirebaseStorage
+    private lateinit var photoUri : Uri
+    private lateinit var auth : FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
+    private val customProgressDialog : CustomProgressDialog by inject()
 
     override val layoutResourceId: Int
         get() = R.layout.activity_add_photo
@@ -78,6 +82,9 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
         }
     }
     fun contentUpload(){
+
+        customProgressDialog.show()
+
         //Make fileName
 
         var timestamp = SimpleDateFormat("yyyy.MMdd_HHmmss").format(Date())
@@ -89,6 +96,9 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
         storageRef.putFile(photoUri).continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
             return@continueWithTask storageRef.downloadUrl
         }.addOnSuccessListener { uri->
+
+            customProgressDialog.dismiss()
+
             var contentDTO = ContentDTO()
 
             //Insert file information
@@ -102,27 +112,10 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
             setResult(Activity.RESULT_OK)
 
             finish()
+        }.addOnFailureListener {
+            customProgressDialog.show()
         }
 
-        //FileUpload
-        /*storageRef.putFile(photoUri).addOnSuccessListener {
-            storageRef.downloadUrl.addOnSuccessListener {
-                uri ->
 
-                var contentDTO = ContentDTO()
-
-                //Insert file information
-                contentDTO.imageUrl = uri.toString()
-                contentDTO.uid = auth.currentUser?.uid
-                contentDTO.userId = auth.currentUser?.email
-                contentDTO.explain = addphoto_edit_explain.text.toString()
-                contentDTO.timestamp = System.currentTimeMillis()
-                firestore.collection("images").document().set(contentDTO)
-
-                setResult(Activity.RESULT_OK)
-
-                finish()
-            }
-        }*/
     }
 }
