@@ -5,7 +5,9 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
+import android.view.animation.AnimationUtils
 import com.example.gyunstagram.R
+import kotlinx.android.synthetic.main.activity_progress.*
 
 class CustomProgressDialog(context : Context) : ProgressDialog(context){
 
@@ -21,7 +23,15 @@ class CustomProgressDialog(context : Context) : ProgressDialog(context){
 
         getWindow().setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT));
 
+        progressActivity_imageView.animation = AnimationUtils.loadAnimation(context,R.anim.loading)
 
+    }
 
+    override fun show() {
+        super.show()
+    }
+
+    override fun dismiss() {
+        super.dismiss()
     }
 }

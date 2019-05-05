@@ -1,6 +1,7 @@
 package com.example.gyunstagram.di
 
 import com.example.gyunstagram.usecase.ActivityStarterUseCase
+import com.example.gyunstagram.view.CustomProgressDialog
 import com.example.gyunstagram.viewModel.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -37,7 +38,13 @@ var viewModelPart = module {
     }
 }
 
+var customDialogPart = module {
+    single {
+        CustomProgressDialog(androidContext())
+    }
+}
 
 
 
-var myDiModule = listOf(viewModelPart,mainActivityStarter)
+
+var myDiModule = listOf(viewModelPart,mainActivityStarter, customDialogPart)
