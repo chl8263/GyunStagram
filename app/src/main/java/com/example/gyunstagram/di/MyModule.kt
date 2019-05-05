@@ -1,6 +1,6 @@
 package com.example.gyunstagram.di
 
-import com.example.gyunstagram.usecase.ActivityStarterUseCase
+import com.example.gyunstagram.usecase.impl.ActivityStarterUseCaseImpl
 import com.example.gyunstagram.view.CustomProgressDialog
 import com.example.gyunstagram.viewModel.*
 import org.koin.android.ext.koin.androidContext
@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 var mainActivityStarter = module {
     factory {
-        ActivityStarterUseCase(androidContext())
+        ActivityStarterUseCaseImpl(androidContext())
     }
 }
 

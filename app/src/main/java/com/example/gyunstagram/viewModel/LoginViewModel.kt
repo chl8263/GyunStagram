@@ -2,11 +2,11 @@ package com.example.gyunstagram.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import com.example.gyunstagram.core.BaseViewModel
-import com.example.gyunstagram.usecase.ActivityStarterUseCase
+import com.example.gyunstagram.usecase.impl.ActivityStarterUseCaseImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-class LoginViewModel(val starter : ActivityStarterUseCase) : BaseViewModel(){
+class LoginViewModel(val starter : ActivityStarterUseCaseImpl) : BaseViewModel(){
 
     val auth = FirebaseAuth.getInstance()
     /*lateinit var googleSignInClient : GoogleSignInClient
