@@ -113,7 +113,7 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
 
             finish()
         }.addOnFailureListener {
-            customProgressDialog.show()
+            customProgressDialog.dismiss()
         }
 
 
