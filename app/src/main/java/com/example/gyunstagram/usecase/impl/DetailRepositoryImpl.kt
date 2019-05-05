@@ -3,23 +3,27 @@ package com.example.gyunstagram.usecase.impl
 import com.example.gyunstagram.usecase.DetailRepository
 import com.example.gyunstagram.vo.ContentDTO
 import com.google.firebase.firestore.FirebaseFirestore
+import io.reactivex.Observable
+import io.reactivex.Single
 
-class DetailRepositoryImpl : DetailRepository{
+class DetailRepositoryImpl : DetailRepository {
 
-    val firestore : FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
-    lateinit var contentDtoList : ArrayList<ContentDTO>
-    lateinit var contentUidList : ArrayList<String>
+    var contentDtoList = ArrayList<ContentDTO>()
+    var contentUidList = ArrayList<String>()
 
-    override fun getDetailVIew() {
-        firestore.collection("images").orderBy("timestamp").addSnapshotListener{querySnapshot , firebaseFirestoreException->
+    override fun getDetailVIew(): Single<ArrayList<ContentDTO>> {
+        firestore.collection("images").orderBy("timestamp")
+            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
-            contentDtoList.clear()
-            contentUidList.clear()
-            for(snapshot in querySnapshot!!.documents){
-                var items = snapshot.toObject(ContentDTO::class.java)
-                contentDtoList.add(items!!)
+                for (snapshot in querySnapshot!!.documents) {
+                    var items = snapshot.toObject(ContentDTO::class.java)
+                    contentDtoList.add(items!!)
+                    contentUidList.add(snapshot.id)
+                }
             }
-        }
+        return Single.just(contentDtoList)
     }
+
 }

@@ -38,6 +38,8 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
 
         detailviewfragment_recyclerview.layoutManager = LinearLayoutManager(context)
 
+        viewModel.getDetailData()
+
     }
 
     override fun initDataBinding() {
