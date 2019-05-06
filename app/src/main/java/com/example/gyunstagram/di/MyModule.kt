@@ -24,11 +24,11 @@ var repositoryPart = module {
 }
 
 
-/*var recyclerViewAdapterPart = module {
+var recyclerViewAdapterPart = module {
     single {
-        DetailViewRecyclerViewAdapter(get())
+        DetailViewRecyclerViewAdapter()
     }
-}*/
+}
 
 var viewModelPart = module {
     viewModel {
@@ -64,5 +64,5 @@ var customDialogPart = module {
 
 
 var myDiModule = listOf(
-    viewModelPart,mainActivityStarterPart, customDialogPart,repositoryPart
+    viewModelPart,mainActivityStarterPart, customDialogPart,repositoryPart,recyclerViewAdapterPart
     )

@@ -25,7 +25,7 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
 
     override val viewModel: FragmentDetailViewModel by viewModel()
 
-    var adapter : DetailViewRecyclerViewAdapter? = null
+    val adapter : DetailViewRecyclerViewAdapter by inject()
 
     companion object {
         fun newInstance(): DetailViewFragment {
@@ -40,6 +40,7 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
         viewDataBinding.viewModel =  viewModel
 
         view.detailviewfragment_recyclerview.layoutManager = LinearLayoutManager(context)
+        view.detailviewfragment_recyclerview.adapter = adapter
 
         //view.detailviewfragment_recyclerview.adapter = DetailViewRecyclerViewAdapter(ArrayList<>)
         /*detailviewfragment_recyclerview.run {
@@ -50,9 +51,9 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
     override fun initDataBinding(view: View) {
         viewModel.getDetailData()
         viewModel.contentDtoList.observe(this, Observer {
-            if(adapter == null){
+            /*if(adapter == null){
                 view.detailviewfragment_recyclerview.adapter = DetailViewRecyclerViewAdapter(it as ArrayList<ContentDTO>)
-            }
+            }*/
             adapter?.contentDtoList = it as ArrayList<ContentDTO>
             adapter?.notifyDataSetChanged()
         })

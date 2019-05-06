@@ -10,8 +10,9 @@ import com.example.gyunstagram.R
 import com.example.gyunstagram.vo.ContentDTO
 import kotlinx.android.synthetic.main.item_detail.view.*
 
-class DetailViewRecyclerViewAdapter(var contentDtoList : ArrayList<ContentDTO>/*, var contentUidList : ArrayList<String>*/)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    var contentDtoList = ArrayList<ContentDTO>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.item_detail,parent,false)
