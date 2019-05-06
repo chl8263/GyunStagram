@@ -23,7 +23,6 @@ var repositoryPart = module {
     }
 }
 
-
 var recyclerViewAdapterPart = module {
     single {
         DetailViewRecyclerViewAdapter()
@@ -44,9 +43,6 @@ var viewModelPart = module {
         FragmentDetailViewModel(get())
     }
     viewModel {
-        DetailviewItemViewModel(get(),get())
-    }
-    viewModel {
         FragmentGridViewModel()
     }
     viewModel {
@@ -63,9 +59,6 @@ var customDialogPart = module {
         CustomProgressDialog(androidContext())
     }
 }
-
-
-
 
 var myDiModule = listOf(
     viewModelPart,mainActivityStarterPart, customDialogPart,repositoryPart,recyclerViewAdapterPart

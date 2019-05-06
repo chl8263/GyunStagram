@@ -3,12 +3,12 @@ package com.example.gyunstagram.usecase.impl
 import android.util.Log
 import com.example.gyunstagram.usecase.DetailRepository
 import com.example.gyunstagram.vo.ContentDTO
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Observable
 import io.reactivex.Single
 
 class DetailRepositoryImpl : DetailRepository {
-
 
     val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
@@ -19,21 +19,20 @@ class DetailRepositoryImpl : DetailRepository {
         firestore.collection("images").orderBy("timestamp")
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
-                for (snapshot in querySnapshot!!.documents) {
+                for ((i,snapshot) in querySnapshot!!.documents.withIndex()) {
 
                     var items = snapshot.toObject(ContentDTO::class.java)
                     Log.e("aaa",items.toString())
                     contentDtoList.add(items!!)
-                    contentUidList.add(snapshot.id)
+                    contentDtoList[i].documentuid = snapshot.id
+
                 }
 
             }
+            Log.e("aaa",contentDtoList.toString())
         return Single.just(contentDtoList)
     }
 
-    override fun freshFavorite(): Single<ArrayList<ContentDTO>> {
-
-    }
 
 
 

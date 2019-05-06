@@ -1,19 +1,29 @@
 package com.example.gyunstagram.view.navigation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gyunstagram.R
 import com.example.gyunstagram.vo.ContentDTO
-import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.item_detail.view.*
+
+
 
 class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var contentDtoList = ArrayList<ContentDTO>()
+
+
+
+    private var uid : String? = FirebaseAuth.getInstance().currentUser!!.uid
+    private val firestore : FirebaseFirestore? = FirebaseFirestore.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.item_detail,parent,false)
@@ -27,7 +37,7 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        //val viewModel = Task
+
 
         var viewHolder = (holder as CustomViewHolder).itemView
 
@@ -43,13 +53,36 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
         //like
         viewHolder.detailViewItem_favoriteCounter_textView.text = "Likes ${contentDtoList[position].favoriteCount}"
 
+        //This code is when thw page is loaded
+        if(contentDtoList[position].favorite.containsKey(uid)){
+            viewHolder.detailViewItem_favorite_imageView.setImageResource(R.drawable.ic_favorite)
+        }else{
+            viewHolder.detailViewItem_favorite_imageView.setImageResource(R.drawable.ic_favorite_border)
+        }
 
+        viewHolder.detailViewItem_favorite_imageView.setOnClickListener {
+            favoriteEvent(position)
+        }
 
     }
 
-    fun favoriteEvent (position : Int){
+    private fun favoriteEvent(position: Int) {
+        Log.e("asd",contentDtoList[position].uid.toString())
+        var tsDoc = firestore?.collection("images")?.document(contentDtoList[position].documentuid.toString())
+        firestore?.runTransaction {transaction ->
 
+            var contentDTO = transaction.get(tsDoc!!).toObject(ContentDTO::class.java)
+
+            if(contentDTO!!.favorite.containsKey(uid)){
+                contentDTO?.favoriteCount = contentDTO?.favoriteCount-1
+                contentDTO?.favorite.remove(uid)
+            }else {
+                contentDTO?.favoriteCount =contentDTO?.favoriteCount + 1
+                contentDTO?.favorite[uid!!] = true
+            }
+            transaction.set(tsDoc,contentDTO)
+        }
     }
 
-    inner class CustomViewHolder(view : View) : RecyclerView.ViewHolder(view)
+    inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
