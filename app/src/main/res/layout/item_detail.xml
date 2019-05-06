@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
     />
     <TextView
+            android:textColor="@color/colorDark"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:id="@+id/detailViewItem_explain_textView"
