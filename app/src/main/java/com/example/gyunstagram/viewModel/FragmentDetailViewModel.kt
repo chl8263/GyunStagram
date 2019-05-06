@@ -14,7 +14,6 @@ import io.reactivex.schedulers.Schedulers
 
 class FragmentDetailViewModel(private val repository : DetailRepositoryImpl) : BaseViewModel() {
 
-
     private val _contentDtoList = MutableLiveData<ArrayList<ContentDTO>>()
 
     val contentDtoList : LiveData<ArrayList<ContentDTO>>

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gyunstagram.R
 import com.example.gyunstagram.vo.ContentDTO
+import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.item_detail.view.*
 
 class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -25,6 +26,9 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        //val viewModel = Task
+
         var viewHolder = (holder as CustomViewHolder).itemView
 
         //userId
@@ -40,9 +44,12 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
         viewHolder.detailViewItem_favoriteCounter_textView.text = "Likes ${contentDtoList[position].favoriteCount}"
 
 
-    }
-
-    inner class CustomViewHolder(view : View) : RecyclerView.ViewHolder(view){
 
     }
+
+    fun favoriteEvent (position : Int){
+
+    }
+
+    inner class CustomViewHolder(view : View) : RecyclerView.ViewHolder(view)
 }
