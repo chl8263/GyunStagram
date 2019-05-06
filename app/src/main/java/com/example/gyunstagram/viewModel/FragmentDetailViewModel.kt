@@ -33,4 +33,8 @@ class FragmentDetailViewModel(private val repository : DetailRepositoryImpl) : B
             })
     }
 
+    fun refreshFavorite(list : ArrayList<ContentDTO>){
+        _contentDtoList.postValue(list)
+    }
+
 }

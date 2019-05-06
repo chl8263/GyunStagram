@@ -9,6 +9,7 @@ import io.reactivex.Single
 
 class DetailRepositoryImpl : DetailRepository {
 
+
     val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     var contentDtoList = ArrayList<ContentDTO>()
@@ -29,5 +30,11 @@ class DetailRepositoryImpl : DetailRepository {
             }
         return Single.just(contentDtoList)
     }
+
+    override fun freshFavorite(): Single<ArrayList<ContentDTO>> {
+
+    }
+
+
 
 }

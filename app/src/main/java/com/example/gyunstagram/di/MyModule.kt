@@ -44,6 +44,9 @@ var viewModelPart = module {
         FragmentDetailViewModel(get())
     }
     viewModel {
+        DetailviewItemViewModel(get(),get())
+    }
+    viewModel {
         FragmentGridViewModel()
     }
     viewModel {
@@ -52,6 +55,7 @@ var viewModelPart = module {
     viewModel {
         FragmentAlarmViewModel()
     }
+
 }
 
 var customDialogPart = module {

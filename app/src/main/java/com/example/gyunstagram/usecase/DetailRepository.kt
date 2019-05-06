@@ -6,4 +6,5 @@ import io.reactivex.Single
 interface DetailRepository {
 
     fun getDetailVIew() : Single<ArrayList<ContentDTO>>
+    fun freshFavorite() : Single<ArrayList<ContentDTO>>
 }
