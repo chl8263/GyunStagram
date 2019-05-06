@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
     <LinearLayout
             android:gravity="center_vertical"
@@ -10,7 +10,7 @@
             android:layout_height="50dp"
     >
         <ImageView
-                android:id="@+id/detailviewitem_image"
+                android:id="@+id/detailviewitem_profile_image"
                 android:src="@drawable/instargram"
                 android:layout_margin="7.5dp"
                 android:layout_width="35dp"
@@ -18,14 +18,14 @@
         />
         <TextView
                 android:text="user name"
-                android:id="@+id/detailviewitem_text"
+                android:id="@+id/detailViewItem_profile_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
         />
     </LinearLayout>
 
     <ImageView
-            android:id="@+id/detailviewitem_content"
+            android:id="@+id/detailViewItem_imageView_content"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="250dp"/>
@@ -36,12 +36,12 @@
             android:layout_height="50dp"
     >
         <ImageView
-                android:id="@+id/detailviewitem_favorite_imageview"
+                android:id="@+id/detailViewItem_favorite_imageView"
                 android:src="@drawable/ic_favorite_border"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>
         <ImageView
-                android:id="@+id/detailviewitem_comment_imageview"
+                android:id="@+id/detailViewItem_comment_imageView"
                 android:src="@drawable/ic_chat_black"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>

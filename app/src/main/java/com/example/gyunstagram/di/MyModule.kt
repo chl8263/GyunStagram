@@ -1,18 +1,34 @@
 package com.example.gyunstagram.di
 
 import com.example.gyunstagram.usecase.impl.ActivityStarterUseCaseImpl
+import com.example.gyunstagram.usecase.impl.DetailRepositoryImpl
 import com.example.gyunstagram.view.CustomProgressDialog
+import com.example.gyunstagram.view.navigation.adapter.DetailViewRecyclerViewAdapter
 import com.example.gyunstagram.viewModel.*
+import com.example.gyunstagram.vo.ContentDTO
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
-var mainActivityStarter = module {
+var mainActivityStarterPart = module {
     factory {
         ActivityStarterUseCaseImpl(androidContext())
     }
 }
+
+var repositoryPart = module {
+    factory {
+        DetailRepositoryImpl()
+    }
+}
+
+
+/*var recyclerViewAdapterPart = module {
+    single {
+        DetailViewRecyclerViewAdapter(get())
+    }
+}*/
 
 var viewModelPart = module {
     viewModel {
@@ -25,7 +41,7 @@ var viewModelPart = module {
         AddPthotoViewModel()
     }
     viewModel {
-        FragmentDetailViewModel()
+        FragmentDetailViewModel(get())
     }
     viewModel {
         FragmentGridViewModel()
@@ -47,4 +63,6 @@ var customDialogPart = module {
 
 
 
-var myDiModule = listOf(viewModelPart,mainActivityStarter, customDialogPart)
+var myDiModule = listOf(
+    viewModelPart,mainActivityStarterPart, customDialogPart,repositoryPart
+    )

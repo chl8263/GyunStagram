@@ -27,15 +27,15 @@ class GridFragment : BaseFragment<FragmentDetailBinding,FragmentGridViewModel>()
         }
     }
 
-    override fun initStartView(viwe: View) {
+    override fun initStartView(view: View) {
 
     }
 
-    override fun initDataBinding() {
+    override fun initDataBinding(view: View) {
 
     }
 
-    override fun initAfterBinding() {
+    override fun initAfterBinding(view: View) {
 
     }
 }

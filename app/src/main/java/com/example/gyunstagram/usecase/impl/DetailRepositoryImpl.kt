@@ -1,5 +1,6 @@
 package com.example.gyunstagram.usecase.impl
 
+import android.util.Log
 import com.example.gyunstagram.usecase.DetailRepository
 import com.example.gyunstagram.vo.ContentDTO
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,10 +19,13 @@ class DetailRepositoryImpl : DetailRepository {
             .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
                 for (snapshot in querySnapshot!!.documents) {
+
                     var items = snapshot.toObject(ContentDTO::class.java)
+                    Log.e("aaa",items.toString())
                     contentDtoList.add(items!!)
                     contentUidList.add(snapshot.id)
                 }
+
             }
         return Single.just(contentDtoList)
     }
