@@ -19,22 +19,36 @@ class FragmentDetailViewModel(private val repository : DetailRepositoryImpl) : B
     val contentDtoList : LiveData<ArrayList<ContentDTO>>
         get() = _contentDtoList
 
+    fun getDetailData(){
+        addDisposable(
+            repository.getDetailVIew()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { t1: ArrayList<ContentDTO>?->
+                    Log.e("bbb",t1.toString())
+                    _contentDtoList.postValue(t1)
+                }
+        )
+    }
 
     //var contentDtoList = ObservableArrayList<ContentDTO>()
     //val contentUidList = ObservableArrayList<String>()
 
-    fun getDetailData(){
-        addDisposable(repository.getDetailVIew()
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { t1: ArrayList<ContentDTO>?, t2: Throwable? ->
-                Log.e("bbb",t1.toString())
-                _contentDtoList.postValue(t1)
-            })
-    }
+    /*fun getDetailData(){
+        addDisposable(
+            repository.contentDtoList
+                ?.subscribeOn(AndroidSchedulers.mainThread())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe { t1: ArrayList<ContentDTO>?->
+                    Log.e("bbb",t1.toString())
+                    _contentDtoList.postValue(t1)
+                }!!
+        )
 
-    fun refreshFavorite(list : ArrayList<ContentDTO>){
+    }*/
+
+    /*fun refreshFavorite(list : ArrayList<ContentDTO>){
         _contentDtoList.postValue(list)
-    }
+    }*/
 
 }

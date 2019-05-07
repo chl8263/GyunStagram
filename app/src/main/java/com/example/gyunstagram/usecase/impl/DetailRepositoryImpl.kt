@@ -1,6 +1,8 @@
 package com.example.gyunstagram.usecase.impl
 
 import android.util.Log
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableField
 import com.example.gyunstagram.usecase.DetailRepository
 import com.example.gyunstagram.vo.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
@@ -12,27 +14,28 @@ class DetailRepositoryImpl : DetailRepository {
 
     val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
-    var contentDtoList = ArrayList<ContentDTO>()
-    var contentUidList = ArrayList<String>()
+    var contentDtoList : ArrayList<ContentDTO> = ArrayList<ContentDTO>()
 
-    override fun getDetailVIew(): Single<ArrayList<ContentDTO>> {
-        firestore.collection("images").orderBy("timestamp")
-            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+    override fun getDetailVIew() : Observable<ArrayList<ContentDTO>>{
+        return Observable.create {
+            emitter ->
+            firestore.collection("images").orderBy("timestamp")
+                .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
-                for ((i,snapshot) in querySnapshot!!.documents.withIndex()) {
+                    contentDtoList.clear()
+                    for ((i, snapshot) in querySnapshot!!.documents.withIndex()) {
 
-                    var items = snapshot.toObject(ContentDTO::class.java)
-                    Log.e("aaa",items.toString())
-                    contentDtoList.add(items!!)
-                    contentDtoList[i].documentuid = snapshot.id
-
+                        var items = snapshot.toObject(ContentDTO::class.java)
+                        contentDtoList.add(items!!)
+                        contentDtoList[i].documentuid = snapshot.id
+                    }
+                    Log.e("aaa", contentDtoList.toString())
+                    emitter.onNext(contentDtoList)
                 }
 
-            }
-            Log.e("aaa",contentDtoList.toString())
-        return Single.just(contentDtoList)
-    }
+        }
 
+    }
 
 
 
