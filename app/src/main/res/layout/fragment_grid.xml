@@ -12,10 +12,15 @@
         />
     </data>
     <LinearLayout
-            android:background="#512"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gridFragmentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+        />
 
     </LinearLayout>
 
