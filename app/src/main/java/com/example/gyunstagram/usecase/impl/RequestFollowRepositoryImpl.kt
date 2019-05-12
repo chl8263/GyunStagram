@@ -4,6 +4,7 @@ import com.example.gyunstagram.usecase.RequestFollowRepository
 import com.example.gyunstagram.vo.FollowDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import io.reactivex.Observable
 
 class RequestFollowRepositoryImpl : RequestFollowRepository {
 
@@ -60,5 +61,17 @@ class RequestFollowRepositoryImpl : RequestFollowRepository {
         }
     }
 
+    override fun getFollowerAndFollowing(uid: String): Observable<FollowDTO> {
+        return Observable.create {
+                emitter ->
+            fireStore.collection("users").document(uid).addSnapshotListener{documentSnapshot, firebaseFirestoreException ->
+                documentSnapshot?.let {
+                    var followDTO = documentSnapshot.toObject(FollowDTO::class.java)
+                    emitter.onNext(followDTO!!)
+                }
+            }
+
+        }
+    }
 
 }

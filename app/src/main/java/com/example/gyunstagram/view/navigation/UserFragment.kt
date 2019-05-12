@@ -1,9 +1,13 @@
 package com.example.gyunstagram.view.navigation
 
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
@@ -70,6 +74,7 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
     override fun initDataBinding(view: View) {
         viewModel.getAccountViewData(destinationUid)
         viewModel.getUserProfileUri()
+        viewModel.getFollowAndFollowing(destinationUid)
 
         viewModel.userLiveData.observe(this, Observer {
             adapter.contentDTOs = it as ArrayList<ContentDTO>
@@ -84,8 +89,28 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
         })
 
         viewModel.userProfileUri.observe(this, Observer {
-            Log.e("aasdsdsd",it)
             Glide.with(activity!!).load(it).apply(RequestOptions().circleCrop()).into(view.account_iv_profile)
+        })
+
+        viewModel.followAndFollowing.observe(this, Observer { t ->
+            t.followingCount?.let {
+                view.account_tv_following_count.text = t.followingCount.toString()
+            }
+
+            t.followerCount?.let {
+                view.account_tv_follower_count.text = t.followerCount.toString()
+                if(t.followers.containsKey(myUid)) {
+                    view.account_btn_follow_signOut.text = getString(R.string.follow_cancel)
+                    view.account_btn_follow_signOut.background.setColorFilter(ContextCompat.getColor(activity!!,R.color.colorLightGray),PorterDuff.Mode.MULTIPLY)
+                } else {
+                    view.account_btn_follow_signOut.text = getString(R.string.follow_cancel)
+                    if(destinationUid != myUid){
+                        view.account_btn_follow_signOut.text = getString(R.string.follow)
+                        view.account_btn_follow_signOut.background.colorFilter = null
+                    }
+                }
+
+            }
         })
     }
 
