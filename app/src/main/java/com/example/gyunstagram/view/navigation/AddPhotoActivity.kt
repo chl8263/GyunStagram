@@ -79,7 +79,6 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
                 // This is path to the selected image
                 photoUri = data?.data!!
                 addPhoto_image.setImageURI(photoUri)
-
             }else {
                 //exit the addPhotoActivity if you leave album without selecting it
                 finish()
@@ -88,7 +87,7 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
     }
     fun contentUpload(){
 
-        customProgressDialog.show()
+        //customProgressDialog.show()
 
         //Make fileName
 
@@ -102,7 +101,7 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
             return@continueWithTask storageRef.downloadUrl
         }.addOnSuccessListener { uri->
 
-            customProgressDialog.dismiss()
+            //customProgressDialog.dismiss()
 
             var contentDTO = ContentDTO()
 
@@ -117,9 +116,9 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
             setResult(Activity.RESULT_OK)
 
             finish()
-        }.addOnFailureListener {
+        }/*.addOnFailureListener {
             customProgressDialog.dismiss()
-        }
+        }*/
 
 
     }
