@@ -58,7 +58,9 @@ class LoginViewModel(val starter : ActivityStarterUseCaseImpl) : BaseViewModel()
     }*/
 
     fun moveMainPage(user: FirebaseUser){
-        starter.showMainActivity()
+        if(user != null) {
+            starter.showMainActivity()
+        }
 
     }
 

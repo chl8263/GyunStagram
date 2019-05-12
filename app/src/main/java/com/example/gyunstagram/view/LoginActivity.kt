@@ -23,5 +23,8 @@ class LoginActivity  : BaseActivity<com.example.gyunstagram.databinding.Activity
     override fun initAfterBinding() {
     }
 
-
+    override fun onStart() {
+        super.onStart()
+        viewModel.moveMainPage()
+    }
 }
