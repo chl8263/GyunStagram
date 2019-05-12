@@ -21,7 +21,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() {
 
-
     override val layoutResourceId: Int
         get() = R.layout.fragment_user
 
