@@ -108,6 +108,10 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
             mainActivity.toolbar_title_image.visibility = View.GONE
             mainActivity.toolbar_username.visibility = View.VISIBLE
             mainActivity.toolbar_btn_back.visibility = View.VISIBLE
+
+            view.account_btn_follow_signOut.setOnClickListener {
+                viewModel.requestFollow(destinationUid)
+            }
         }
     }
 }
