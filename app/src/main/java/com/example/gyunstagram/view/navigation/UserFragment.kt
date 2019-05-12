@@ -76,9 +76,10 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
         if (myUid == destinationUid) {    //myPage
             view.account_btn_follow_signOut.text = getString(R.string.signout)
             view.account_btn_follow_signOut.setOnClickListener {
-                activity?.finish()
+
                 startActivity(Intent(activity, LoginActivity::class.java))
                 FirebaseAuth.getInstance().signOut()
+                activity?.finish()
             }
         } else {     //other Page
             view.account_btn_follow_signOut.text = getString(R.string.follow)

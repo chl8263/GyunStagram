@@ -11,6 +11,7 @@ import com.example.gyunstagram.R
 import com.example.gyunstagram.di.mainActivityStarterPart
 import com.example.gyunstagram.view.navigation.UserFragment
 import com.example.gyunstagram.vo.ContentDTO
+import com.example.gyunstagram.vo.MessageEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -68,7 +69,7 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         viewHolder.detailviewitem_profile_image.setOnClickListener {
-           EventBus.getDefault().post("userFragment")
+           EventBus.getDefault().post(MessageEvent("userFragment",contentDtoList[position].uid.toString(),contentDtoList[position].userId.toString()))
         }
 
     }

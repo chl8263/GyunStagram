@@ -98,7 +98,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     fun setToolbarDefault(){
         toolbar_username.visibility = View.GONE
         toolbar_btn_back.visibility = View.GONE
-        toolbar_title_image.visibility = View.GONE
+        toolbar_title_image.visibility = View.VISIBLE
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -107,7 +107,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             var fragment = UserFragment.newInstance()
 
             var bundle = Bundle()
-            bundle.putString(UserFragment.DESTINATIONUID , uid)
+            bundle.putString(UserFragment.DESTINATIONUID , event.destinationUid)
+            bundle.putString(UserFragment.USERID , event.userId)
 
             fragment.arguments = bundle
             replaceFragment(fragment)

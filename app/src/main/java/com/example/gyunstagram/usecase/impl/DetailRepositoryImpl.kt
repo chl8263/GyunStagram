@@ -23,13 +23,15 @@ class DetailRepositoryImpl : DetailRepository {
                 .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
                     contentDtoList.clear()
-                    for ((i, snapshot) in querySnapshot!!.documents.withIndex()) {
+                    if(querySnapshot != null) {
+                        for ((i, snapshot) in querySnapshot!!.documents.withIndex()) {
 
-                        var items = snapshot.toObject(ContentDTO::class.java)
-                        contentDtoList.add(items!!)
-                        contentDtoList[i].documentuid = snapshot.id
+                            var items = snapshot.toObject(ContentDTO::class.java)
+                            contentDtoList.add(items!!)
+                            contentDtoList[i].documentuid = snapshot.id
+                        }
+                        emitter.onNext(contentDtoList)
                     }
-                    emitter.onNext(contentDtoList)
                 }
 
         }
