@@ -1,0 +1,64 @@
+package com.example.gyunstagram.usecase.impl
+
+import com.example.gyunstagram.usecase.RequestFollowRepository
+import com.example.gyunstagram.vo.FollowDTO
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
+class RequestFollowRepositoryImpl : RequestFollowRepository {
+
+    private val fireStore : FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    private val myUid : String by lazy { FirebaseAuth.getInstance().currentUser!!.uid}
+
+    override fun getRequestFolow( destinationUid: String) {
+
+        // DB의 내 저장소에 갱신할 데이터
+        var tsDocFollowing = fireStore.collection("users").document(myUid)
+        fireStore.runTransaction { transaction ->
+            var followDTO = transaction.get(tsDocFollowing).toObject(FollowDTO::class.java)
+
+            if(followDTO == null){
+                followDTO = FollowDTO()
+                followDTO.followingCount = 1
+                followDTO.followers[destinationUid] = true
+
+                transaction.set(tsDocFollowing,followDTO)
+                return@runTransaction
+            }
+            if(followDTO.followings.containsKey(destinationUid)){
+                followDTO.followingCount = followDTO.followingCount - 1
+                followDTO.followers.remove(destinationUid)
+            }else {
+                followDTO.followingCount = followDTO.followingCount + 1
+                followDTO.followers[destinationUid] = true
+            }
+            transaction.set(tsDocFollowing,followDTO)
+            return@runTransaction
+        }
+
+        // DB의 제 3자의 정보를 갱신하는 로직
+        var tsDocFollower = fireStore.collection("users").document(destinationUid)
+        fireStore.runTransaction {transaction ->
+            var followDTO = transaction.get(tsDocFollower).toObject(FollowDTO::class.java)
+            if(followDTO == null){
+                followDTO = FollowDTO()
+                followDTO!!.followerCount = 1
+                followDTO!!.followers[myUid] = true
+
+                transaction.set(tsDocFollower,followDTO!!)
+                return@runTransaction
+            }
+
+            if(followDTO!!.followers.containsKey(myUid)){
+                followDTO!!.followerCount = followDTO!!.followerCount - 1
+                followDTO!!.followers.remove(myUid)
+            }else{
+                followDTO!!.followerCount = followDTO!!.followerCount + 1
+                followDTO!!.followers[myUid] = true
+            }
+            transaction.set(tsDocFollower,followDTO!!)
+            return@runTransaction
+        }
+
+        }
+    }

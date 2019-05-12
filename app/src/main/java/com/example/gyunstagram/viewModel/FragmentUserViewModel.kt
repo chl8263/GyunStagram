@@ -6,12 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import com.example.gyunstagram.core.BaseViewModel
 import com.example.gyunstagram.usecase.impl.AccountRepositoryImpl
 import com.example.gyunstagram.usecase.impl.ProfileImageRepositoryImpl
+import com.example.gyunstagram.usecase.impl.RequestFollowRepositoryImpl
 import com.example.gyunstagram.vo.ContentDTO
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class FragmentUserViewModel(private val accountRepository : AccountRepositoryImpl , private val profileRepository : ProfileImageRepositoryImpl) : BaseViewModel() {
+class FragmentUserViewModel(private val accountRepository : AccountRepositoryImpl ,
+                            private val profileRepository : ProfileImageRepositoryImpl,
+                            private val followRepository : RequestFollowRepositoryImpl) : BaseViewModel() {
 
     private val _userLiveData  = MutableLiveData<ArrayList<ContentDTO>>()
 
@@ -51,6 +54,10 @@ class FragmentUserViewModel(private val accountRepository : AccountRepositoryImp
                     _userProfileUri.postValue(t)
                 }
         )
+    }
+
+    fun requestFollow(destinationUid : String){
+        followRepository.getRequestFolow(destinationUid)
     }
 
 }
