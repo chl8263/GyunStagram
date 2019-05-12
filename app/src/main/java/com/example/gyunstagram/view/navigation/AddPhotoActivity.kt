@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil.setContentView
 import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityAddPhotoBinding
+import com.example.gyunstagram.util.Const
 import com.example.gyunstagram.util.toast
 import com.example.gyunstagram.view.CustomProgressDialog
 import com.example.gyunstagram.viewModel.AddPthotoViewModel
@@ -28,7 +29,7 @@ import java.util.*
 
 class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel>() {
 
-    var PICK_IMAGE_FROM_ALBUM = 0
+
     private lateinit var storage : FirebaseStorage
     private lateinit var photoUri : Uri
     private lateinit var auth : FirebaseAuth
@@ -40,6 +41,10 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
         get() = R.layout.activity_add_photo
 
     override val viewModel : AddPthotoViewModel by viewModel()
+
+    companion object {
+        val PICK_IMAGE_FROM_ALBUM = 0
+    }
 
     override fun initStartView() {
 
@@ -90,7 +95,7 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
         var timestamp = SimpleDateFormat("yyyy.MMdd_HHmmss").format(Date())
         var imageFIleName = "IMAGE_${timestamp}_.png"
 
-        var storageRef = storage.reference.child("images").child(imageFIleName)
+        var storageRef = storage.reference.child(Const.FIREBASE_COLLECTION_IMAGES).child(imageFIleName)
 
         //Promise method
         storageRef.putFile(photoUri).continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
@@ -107,7 +112,7 @@ class AddPhotoActivity : BaseActivity<ActivityAddPhotoBinding,AddPthotoViewModel
             contentDTO.userId = auth.currentUser?.email
             contentDTO.explain = addphoto_edit_explain.text.toString()
             contentDTO.timestamp = System.currentTimeMillis()
-            firestore.collection("images").document().set(contentDTO)
+            firestore.collection(Const.FIREBASE_COLLECTION_IMAGES).document().set(contentDTO)
 
             setResult(Activity.RESULT_OK)
 

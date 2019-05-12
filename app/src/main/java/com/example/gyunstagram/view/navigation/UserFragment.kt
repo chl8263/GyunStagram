@@ -10,6 +10,7 @@ import com.example.gyunstagram.core.BaseFragment
 import com.example.gyunstagram.databinding.FragmentUserBinding
 import com.example.gyunstagram.view.LoginActivity
 import com.example.gyunstagram.view.MainActivity
+import com.example.gyunstagram.view.navigation.AddPhotoActivity.Companion.PICK_IMAGE_FROM_ALBUM
 import com.example.gyunstagram.view.navigation.adapter.UserFragmentRecyclerViewadapter
 import com.example.gyunstagram.viewModel.FragmentUserViewModel
 import com.example.gyunstagram.vo.ContentDTO
@@ -33,6 +34,8 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
 
     companion object {
 
+        var PICK_PROFILE_FROM_ALBUM = 10
+
         val DESTINATIONUID = "DESTINATIONUID"
         val USERID = "USERID"
 
@@ -52,6 +55,12 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
         view.account_recyclerView.layoutManager = GridLayoutManager(activity, 3)
 
         destinationUid = arguments!!.get(UserFragment.DESTINATIONUID).toString()
+
+        view.account_iv_profile.setOnClickListener {
+            var photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            activity?.startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
+        }
 
     }
 

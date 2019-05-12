@@ -2,6 +2,7 @@ package com.example.gyunstagram.usecase.impl
 
 import android.util.Log
 import com.example.gyunstagram.usecase.AccountRepository
+import com.example.gyunstagram.util.Const
 import com.example.gyunstagram.vo.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,7 +19,7 @@ class AccountRepositoryImpl : AccountRepository {
         return Observable.create {
             emitter ->
             Log.e("asas",uid)
-            firestore.collection("images")?.whereEqualTo("uid",userUid).addSnapshotListener{
+            firestore.collection(Const.FIREBASE_COLLECTION_IMAGES)?.whereEqualTo("uid",userUid).addSnapshotListener{
                 querySnapshot, firebaseFirestoreException ->
 
                 contentDTOList.clear()

@@ -1,8 +1,10 @@
 package com.example.gyunstagram.view
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -11,11 +13,16 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityMainBinding
+import com.example.gyunstagram.util.Const
 import com.example.gyunstagram.view.navigation.*
 import com.example.gyunstagram.viewModel.MainViewModel
 import com.example.gyunstagram.vo.MessageEvent
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -99,6 +106,26 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         toolbar_username.visibility = View.GONE
         toolbar_btn_back.visibility = View.GONE
         toolbar_title_image.visibility = View.VISIBLE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == UserFragment.PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK){
+            var imageUri = data?.data
+            var uid = FirebaseAuth.getInstance().currentUser?.uid
+            var storageRef = FirebaseStorage.getInstance().reference.child(Const.STORAGE_FOLDER_USERPROFILEIMAGES).child(uid!!)
+            storageRef.putFile(imageUri!!).continueWithTask { task: Task<UploadTask.TaskSnapshot> ->
+                return@continueWithTask storageRef.downloadUrl
+            }.addOnSuccessListener {
+                uri ->
+                var map = HashMap<String , Any>()
+                map["image"] = uri.toString()
+                FirebaseFirestore.getInstance().collection(Const.FIRESTORE_COLLECTION_PROFILEIMAGE).document(uid).set(map)
+            }.addOnFailureListener {
+                Log.e("fafa","fafa")
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

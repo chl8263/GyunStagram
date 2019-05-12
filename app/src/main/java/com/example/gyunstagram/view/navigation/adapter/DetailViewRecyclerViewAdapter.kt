@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gyunstagram.R
 import com.example.gyunstagram.di.mainActivityStarterPart
+import com.example.gyunstagram.util.Const
 import com.example.gyunstagram.view.navigation.UserFragment
 import com.example.gyunstagram.vo.ContentDTO
 import com.example.gyunstagram.vo.MessageEvent
@@ -76,7 +77,7 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
 
     private fun favoriteEvent(position: Int) {
         Log.e("asd",contentDtoList[position].uid.toString())
-        var tsDoc = firestore?.collection("images")?.document(contentDtoList[position].documentuid.toString())
+        var tsDoc = firestore?.collection(Const.FIREBASE_COLLECTION_IMAGES)?.document(contentDtoList[position].documentuid.toString())
         firestore?.runTransaction {transaction ->
 
             var contentDTO = transaction.get(tsDoc!!).toObject(ContentDTO::class.java)
