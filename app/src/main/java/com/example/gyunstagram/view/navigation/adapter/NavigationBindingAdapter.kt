@@ -1,4 +1,4 @@
-package com.example.gyunstagram.viewModel
+package com.example.gyunstagram.view.navigation.adapter
 
 import android.util.Log
 import androidx.databinding.BindingAdapter
