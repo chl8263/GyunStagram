@@ -1,5 +1,6 @@
 package com.example.gyunstagram.view.navigation.adapter
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +8,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gyunstagram.R
+import com.example.gyunstagram.di.mainActivityStarterPart
+import com.example.gyunstagram.view.navigation.UserFragment
 import com.example.gyunstagram.vo.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.item_detail.view.*
-
+import org.greenrobot.eventbus.EventBus
 
 
 class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -62,6 +65,10 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
 
         viewHolder.detailViewItem_favorite_imageView.setOnClickListener {
             favoriteEvent(position)
+        }
+
+        viewHolder.detailviewitem_profile_image.setOnClickListener {
+           EventBus.getDefault().post("userFragment")
         }
 
     }

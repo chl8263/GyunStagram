@@ -2,6 +2,8 @@ package com.example.gyunstagram.view
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Bundle
+import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -11,11 +13,18 @@ import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityMainBinding
 import com.example.gyunstagram.view.navigation.*
 import com.example.gyunstagram.viewModel.MainViewModel
+import com.example.gyunstagram.vo.MessageEvent
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.jar.Manifest
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
+
+    private val uid : String by lazy { FirebaseAuth.getInstance().currentUser!!.uid}
 
     override val layoutResourceId: Int
         get() = R.layout.activity_main
@@ -30,6 +39,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
         //permission setting and request first enter app
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),1)
+
+        EventBus.getDefault().register(this)
     }
 
     override fun initDataBinding() {
@@ -45,7 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     var navigationSelectedListener : BottomNavigationView.OnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
             menuItem ->
-
+        setToolbarDefault()
         when(menuItem.itemId){
             R.id.action_home -> {
                 replaceFragment(DetailViewFragment.newInstance())
@@ -67,7 +78,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.action_account -> {
-                replaceFragment(UserFragment.newInstance())
+                var fragment = UserFragment.newInstance()
+
+                var bundle = Bundle()
+                bundle.putString(UserFragment.DESTINATIONUID , uid)
+
+                fragment.arguments = bundle
+
+                replaceFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -75,5 +93,29 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
         }
         return@OnNavigationItemSelectedListener false
+    }
+
+    fun setToolbarDefault(){
+        toolbar_username.visibility = View.GONE
+        toolbar_btn_back.visibility = View.GONE
+        toolbar_title_image.visibility = View.GONE
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event : MessageEvent){
+        if(event.eventName == "userFragment"){
+            var fragment = UserFragment.newInstance()
+
+            var bundle = Bundle()
+            bundle.putString(UserFragment.DESTINATIONUID , uid)
+
+            fragment.arguments = bundle
+            replaceFragment(fragment)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

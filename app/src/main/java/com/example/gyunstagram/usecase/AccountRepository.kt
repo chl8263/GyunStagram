@@ -6,5 +6,5 @@ import kotlin.collections.ArrayList
 
 interface AccountRepository  {
 
-    fun getAccountViewData() : Observable<ArrayList<ContentDTO>>
+    fun getAccountViewData(userUid : String) : Observable<ArrayList<ContentDTO>>
 }

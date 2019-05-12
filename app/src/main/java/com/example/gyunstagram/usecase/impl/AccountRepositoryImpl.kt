@@ -14,11 +14,11 @@ class AccountRepositoryImpl : AccountRepository {
 
     var contentDTOList : ArrayList<ContentDTO> = ArrayList<ContentDTO>()
 
-    override fun getAccountViewData(): Observable<ArrayList<ContentDTO>> {
+    override fun getAccountViewData(userUid : String): Observable<ArrayList<ContentDTO>> {
         return Observable.create {
             emitter ->
             Log.e("asas",uid)
-            firestore.collection("images")?.whereEqualTo("uid",uid).addSnapshotListener{
+            firestore.collection("images")?.whereEqualTo("uid",userUid).addSnapshotListener{
                 querySnapshot, firebaseFirestoreException ->
 
                 contentDTOList.clear()

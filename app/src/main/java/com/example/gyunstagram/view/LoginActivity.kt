@@ -1,5 +1,6 @@
 package com.example.gyunstagram.view
 
+import androidx.lifecycle.Observer
 import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.viewModel.LoginViewModel
@@ -18,13 +19,12 @@ class LoginActivity  : BaseActivity<com.example.gyunstagram.databinding.Activity
     }
 
     override fun initDataBinding() {
+        viewModel.isMoveMainPage.observe(this, Observer {
+            finish()
+        })
     }
 
     override fun initAfterBinding() {
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.moveMainPage()
-    }
 }

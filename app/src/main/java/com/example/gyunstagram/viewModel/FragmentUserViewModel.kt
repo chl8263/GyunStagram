@@ -22,9 +22,9 @@ class FragmentUserViewModel(private val repository : AccountRepositoryImpl) : Ba
     val account_tv_post_count : LiveData<String>
         get() = _account_tv_post_count
 
-    fun getAccountViewData(){
+    fun getAccountViewData(userUid : String){
         addDisposable(
-            repository.getAccountViewData()
+            repository.getAccountViewData(userUid)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {

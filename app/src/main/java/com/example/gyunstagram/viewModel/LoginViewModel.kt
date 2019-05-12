@@ -1,8 +1,10 @@
 package com.example.gyunstagram.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gyunstagram.core.BaseViewModel
 import com.example.gyunstagram.usecase.impl.ActivityStarterUseCaseImpl
+import com.example.gyunstagram.util.SingleLiveEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -14,6 +16,10 @@ class LoginViewModel(val starter : ActivityStarterUseCaseImpl) : BaseViewModel()
 
     var _emailText = MutableLiveData<String>()
     var _passwordText = MutableLiveData<String>()
+
+    private val _isMoveMainPage = SingleLiveEvent<Any>()
+    val isMoveMainPage : LiveData<Any>
+        get() = _isMoveMainPage
 
     fun signInAndSignUp(){
         auth?.let {
@@ -60,6 +66,7 @@ class LoginViewModel(val starter : ActivityStarterUseCaseImpl) : BaseViewModel()
     fun moveMainPage(user: FirebaseUser){
         if(user != null) {
             starter.showMainActivity()
+            _isMoveMainPage.call()
         }
 
     }
