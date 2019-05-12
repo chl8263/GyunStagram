@@ -2,9 +2,12 @@ package com.example.gyunstagram.view.navigation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseFragment
 import com.example.gyunstagram.databinding.FragmentUserBinding
@@ -66,6 +69,7 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
 
     override fun initDataBinding(view: View) {
         viewModel.getAccountViewData(destinationUid)
+        viewModel.getUserProfileUri()
 
         viewModel.userLiveData.observe(this, Observer {
             adapter.contentDTOs = it as ArrayList<ContentDTO>
@@ -77,6 +81,11 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
 
             view.account_tv_post_count.text = it
 
+        })
+
+        viewModel.userProfileUri.observe(this, Observer {
+            Log.e("aasdsdsd",it)
+            Glide.with(activity!!).load(it).apply(RequestOptions().circleCrop()).into(view.account_iv_profile)
         })
     }
 

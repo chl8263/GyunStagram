@@ -5,12 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gyunstagram.core.BaseViewModel
 import com.example.gyunstagram.usecase.impl.AccountRepositoryImpl
+import com.example.gyunstagram.usecase.impl.ProfileImageRepositoryImpl
 import com.example.gyunstagram.vo.ContentDTO
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class FragmentUserViewModel(private val repository : AccountRepositoryImpl) : BaseViewModel() {
+class FragmentUserViewModel(private val accountRepository : AccountRepositoryImpl , private val profileRepository : ProfileImageRepositoryImpl) : BaseViewModel() {
 
     private val _userLiveData  = MutableLiveData<ArrayList<ContentDTO>>()
 
@@ -22,15 +23,32 @@ class FragmentUserViewModel(private val repository : AccountRepositoryImpl) : Ba
     val account_tv_post_count : LiveData<String>
         get() = _account_tv_post_count
 
+    private val _userProfileUri  = MutableLiveData<String>()
+
+    val userProfileUri : LiveData<String>
+        get() = _userProfileUri
+
     fun getAccountViewData(userUid : String){
         addDisposable(
-            repository.getAccountViewData(userUid)
+            accountRepository.getAccountViewData(userUid)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     t: ArrayList<ContentDTO>? ->
                     _userLiveData.postValue(t)
                     _account_tv_post_count.postValue(t?.size.toString())
+                }
+        )
+    }
+
+    fun getUserProfileUri(){
+        addDisposable(
+            profileRepository.getProfileImage()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    t: String? ->
+                    _userProfileUri.postValue(t)
                 }
         )
     }

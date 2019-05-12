@@ -3,6 +3,7 @@ package com.example.gyunstagram.di
 import com.example.gyunstagram.usecase.impl.AccountRepositoryImpl
 import com.example.gyunstagram.usecase.impl.ActivityStarterUseCaseImpl
 import com.example.gyunstagram.usecase.impl.DetailRepositoryImpl
+import com.example.gyunstagram.usecase.impl.ProfileImageRepositoryImpl
 import com.example.gyunstagram.view.CustomProgressDialog
 import com.example.gyunstagram.view.navigation.adapter.DetailViewRecyclerViewAdapter
 import com.example.gyunstagram.view.navigation.adapter.GridFragmentRecyclerViewAdapter
@@ -26,6 +27,9 @@ var repositoryPart = module {
     }
     factory {
         AccountRepositoryImpl()
+    }
+    factory {
+        ProfileImageRepositoryImpl()
     }
 
 }
@@ -59,7 +63,7 @@ var viewModelPart = module {
         FragmentGridViewModel(get())
     }
     viewModel {
-        FragmentUserViewModel(get())
+        FragmentUserViewModel(get(),get())
     }
     viewModel {
         FragmentAlarmViewModel()
