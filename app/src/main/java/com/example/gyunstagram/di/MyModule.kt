@@ -1,5 +1,6 @@
 package com.example.gyunstagram.di
 
+import com.example.gyunstagram.usecase.impl.AccountRepositoryImpl
 import com.example.gyunstagram.usecase.impl.ActivityStarterUseCaseImpl
 import com.example.gyunstagram.usecase.impl.DetailRepositoryImpl
 import com.example.gyunstagram.view.CustomProgressDialog
@@ -21,6 +22,9 @@ var mainActivityStarterPart = module {
 var repositoryPart = module {
     factory {
         DetailRepositoryImpl()
+    }
+    factory {
+        AccountRepositoryImpl()
     }
 }
 
@@ -50,7 +54,7 @@ var viewModelPart = module {
         FragmentGridViewModel()
     }
     viewModel {
-        FragmentUserViewModel()
+        FragmentUserViewModel(get())
     }
     viewModel {
         FragmentAlarmViewModel()

@@ -2,7 +2,6 @@ package com.example.gyunstagram.view
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -13,7 +12,6 @@ import com.example.gyunstagram.databinding.ActivityMainBinding
 import com.example.gyunstagram.view.navigation.*
 import com.example.gyunstagram.viewModel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.jar.Manifest
 
@@ -69,14 +67,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.action_account -> {
-
-                var bundle = Bundle()
-                var uid = FirebaseAuth.getInstance().currentUser?.uid
-                bundle.putString(UserFragment.destinationUID,uid)
-
-                var fragment = UserFragment.newInstance()
-                fragment.arguments = bundle
-                replaceFragment(fragment)
+                replaceFragment(UserFragment.newInstance())
                 return@OnNavigationItemSelectedListener true
             }
 

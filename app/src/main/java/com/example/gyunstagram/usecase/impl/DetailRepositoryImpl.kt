@@ -29,7 +29,6 @@ class DetailRepositoryImpl : DetailRepository {
                         contentDtoList.add(items!!)
                         contentDtoList[i].documentuid = snapshot.id
                     }
-                    Log.e("aaa", contentDtoList.toString())
                     emitter.onNext(contentDtoList)
                 }
 
