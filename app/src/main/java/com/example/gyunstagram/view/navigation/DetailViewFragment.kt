@@ -1,5 +1,6 @@
 package com.example.gyunstagram.view.navigation
 
+import android.content.Intent
 import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.os.Bundle
 import android.view.View
@@ -12,9 +13,13 @@ import com.example.gyunstagram.databinding.FragmentDetailBinding
 import com.example.gyunstagram.view.navigation.adapter.DetailViewRecyclerViewAdapter
 import com.example.gyunstagram.viewModel.FragmentDetailViewModel
 import com.example.gyunstagram.vo.ContentDTO
+import com.example.gyunstagram.vo.MessageComment
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_detail.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -42,10 +47,7 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
         view.detailviewfragment_recyclerview.layoutManager = LinearLayoutManager(context)
         view.detailviewfragment_recyclerview.adapter = adapter
 
-        //view.detailviewfragment_recyclerview.adapter = DetailViewRecyclerViewAdapter(ArrayList<>)
-        /*detailviewfragment_recyclerview.run {
-            layoutManager = LinearLayoutManager(context)
-        }*/
+        EventBus.getDefault().register(this)
     }
 
     override fun initDataBinding(view: View) {
@@ -61,5 +63,21 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
 
     override fun initAfterBinding(view: View) {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event : MessageComment){
+
+        if(event.type == "trance_comment_activity"){
+            var intent = Intent(context,CommentActivity::class.java)
+            intent.putExtra(CommentActivity.COONTENTUID, event.contentUid)
+            context?.startActivity(intent)
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

@@ -12,6 +12,7 @@ import com.example.gyunstagram.di.mainActivityStarterPart
 import com.example.gyunstagram.util.Const
 import com.example.gyunstagram.view.navigation.UserFragment
 import com.example.gyunstagram.vo.ContentDTO
+import com.example.gyunstagram.vo.MessageComment
 import com.example.gyunstagram.vo.MessageEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -73,7 +74,7 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
            EventBus.getDefault().post(MessageEvent("userFragment",contentDtoList[position].uid.toString(),contentDtoList[position].userId.toString()))
         }
         viewHolder.detailViewItem_comment_imageView.setOnClickListener {
-            EventBus.getDefault().post(MessageEvent("userFragment",contentDtoList[position].uid.toString(),contentDtoList[position].userId.toString()))
+            EventBus.getDefault().post(MessageComment("trance_comment_activity",contentDtoList[position].documentuid.toString()))
         }
 
     }

@@ -18,6 +18,10 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
 
     override val viewModel: CommentViewModel by viewModel()
 
+    companion object {
+        val COONTENTUID = "COONTENTUID"
+    }
+
     override fun initStartView() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
