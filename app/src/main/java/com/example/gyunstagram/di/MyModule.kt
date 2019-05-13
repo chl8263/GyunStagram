@@ -68,6 +68,9 @@ var viewModelPart = module {
     viewModel {
         FragmentAlarmViewModel()
     }
+    viewModel {
+        CommentViewModel()
+    }
 
 }
 
