@@ -73,7 +73,6 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
             intent.putExtra(CommentActivity.COONTENTUID, event.contentUid)
             context?.startActivity(intent)
         }
-
     }
 
     override fun onDestroy() {
