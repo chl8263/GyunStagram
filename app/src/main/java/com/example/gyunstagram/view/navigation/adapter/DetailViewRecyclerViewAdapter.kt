@@ -72,6 +72,9 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
         viewHolder.detailviewitem_profile_image.setOnClickListener {
            EventBus.getDefault().post(MessageEvent("userFragment",contentDtoList[position].uid.toString(),contentDtoList[position].userId.toString()))
         }
+        viewHolder.detailViewItem_comment_imageView.setOnClickListener {
+            EventBus.getDefault().post(MessageEvent("userFragment",contentDtoList[position].uid.toString(),contentDtoList[position].userId.toString()))
+        }
 
     }
 
