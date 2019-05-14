@@ -21,7 +21,6 @@ class LoginActivity  : BaseActivity<com.example.gyunstagram.databinding.Activity
 
     override fun initDataBinding() {
         viewModel.isMoveMainPage.observe(this, Observer {
-            Log.e("aa","finish")
             finish()
         })
     }

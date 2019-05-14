@@ -25,7 +25,6 @@ class FragmentDetailViewModel(private val repository : DetailRepositoryImpl) : B
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { t1: ArrayList<ContentDTO>?->
-                    Log.e("bbb",t1.toString())
                     _contentDtoList.postValue(t1)
                 }
         )

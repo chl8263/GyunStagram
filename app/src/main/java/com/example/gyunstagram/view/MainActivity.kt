@@ -14,6 +14,7 @@ import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityMainBinding
 import com.example.gyunstagram.util.Const
+import com.example.gyunstagram.util.toast
 import com.example.gyunstagram.view.navigation.*
 import com.example.gyunstagram.viewModel.MainViewModel
 import com.example.gyunstagram.vo.MessageEvent
@@ -123,7 +124,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 map["image"] = uri.toString()
                 FirebaseFirestore.getInstance().collection(Const.FIRESTORE_COLLECTION_PROFILEIMAGE).document(uid).set(map)
             }.addOnFailureListener {
-                Log.e("fafa","fafa")
+                this.toast("DB error")
             }
         }
     }

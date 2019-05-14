@@ -80,7 +80,6 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     private fun favoriteEvent(position: Int) {
-        Log.e("asd",contentDtoList[position].uid.toString())
         var tsDoc = firestore?.collection(Const.FIREBASE_COLLECTION_IMAGES)?.document(contentDtoList[position].documentuid.toString())
         firestore?.runTransaction {transaction ->
 

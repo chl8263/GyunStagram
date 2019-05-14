@@ -44,8 +44,6 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
             comment.comment = comment_edit_message.text.toString()
             comment.timestamp = System.currentTimeMillis()
 
-            Log.e("aaa",contentUid)
-
             FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_IMAGES).document(contentUid).collection(FIREBASE_COLLECTION_COMMENTS).document().set(comment).addOnCompleteListener {
                 task ->
                 if(task.isCanceled) this.toast("DB error")

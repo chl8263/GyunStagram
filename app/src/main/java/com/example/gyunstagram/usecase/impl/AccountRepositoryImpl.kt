@@ -18,7 +18,6 @@ class AccountRepositoryImpl : AccountRepository {
     override fun getAccountViewData(userUid : String): Observable<ArrayList<ContentDTO>> {
         return Observable.create {
             emitter ->
-            Log.e("asas",uid)
             firestore.collection(Const.FIREBASE_COLLECTION_IMAGES)?.whereEqualTo("uid",userUid).addSnapshotListener{
                 querySnapshot, firebaseFirestoreException ->
 

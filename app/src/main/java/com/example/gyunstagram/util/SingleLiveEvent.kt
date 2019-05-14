@@ -37,7 +37,6 @@ class SingleLiveEvent<T> : MutableLiveData<T>(){
     @MainThread
     fun call(){
         //mPending.set(true)
-        Log.e("a",mPending.toString())
         setValue(null as T)
     }
 
