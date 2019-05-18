@@ -35,8 +35,11 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
 
     override fun initStartView() {
 
+        var contentUid = intent.getStringExtra(CommentActivity.COONTENTUID)
+
+        viewModel.contentUid = contentUid
+
         comment_btn_send.setOnClickListener {
-            contentUid = intent.getStringExtra(CommentActivity.COONTENTUID)
 
             var comment  = ContentDTO.Cooment()
             comment.userId = FirebaseAuth.getInstance().currentUser?.email
@@ -44,6 +47,7 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
             comment.comment = comment_edit_message.text.toString()
             comment.timestamp = System.currentTimeMillis()
 
+            // DB 에 Comment 쌓기
             FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_IMAGES).document(contentUid).collection(FIREBASE_COLLECTION_COMMENTS).document().set(comment).addOnCompleteListener {
                 task ->
                 if(task.isCanceled) this.toast("DB error")
