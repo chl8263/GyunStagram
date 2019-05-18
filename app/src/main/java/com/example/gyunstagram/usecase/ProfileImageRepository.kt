@@ -3,5 +3,5 @@ package com.example.gyunstagram.usecase
 import io.reactivex.Observable
 
 interface ProfileImageRepository {
-    fun getProfileImage() : Observable<String>
+    fun getProfileImage(userUid: String) : Observable<String>
 }

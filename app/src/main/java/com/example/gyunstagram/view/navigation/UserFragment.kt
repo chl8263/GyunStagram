@@ -75,7 +75,7 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
 
     override fun initDataBinding(view: View) {
         viewModel.getAccountViewData(destinationUid)
-        viewModel.getUserProfileUri()
+        viewModel.getUserProfileUri(destinationUid)
         viewModel.getFollowAndFollowing(destinationUid)
 
         viewModel.userLiveData.observe(this, Observer {

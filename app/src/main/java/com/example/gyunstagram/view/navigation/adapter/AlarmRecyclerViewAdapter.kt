@@ -22,24 +22,27 @@ class AlarmRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         return CustomViewHolder(view)
     }
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = alarmList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         val commentTextView = holder.itemView.commentViewItem_textView_profile
 
-        when (alarmList[position].kind) {
-            FOLLOW_ALARM -> {
-                val str = alarmList[position].userId + "Liked the press"
-                commentTextView.text = str
-            }
-            COMMENT_ALARM -> {
-                val str = alarmList[position].userId + "Liked the press" + alarmList[position].message + "left a message"
-                commentTextView.text = str
-            }
-            FAVORITE_ALARM -> {
-                val str = alarmList[position].userId + "has started to follow your account"
-                commentTextView.text = str
+        if (alarmList.size != 0) {
+            when (alarmList[position].kind) {
+                FOLLOW_ALARM -> {
+                    val str = alarmList[position].userId + " Liked the press"
+                    commentTextView.text = str
+                }
+                COMMENT_ALARM -> {
+                    val str =
+                        alarmList[position].userId + " Liked the press " + alarmList[position].message + " left a message"
+                    commentTextView.text = str
+                }
+                FAVORITE_ALARM -> {
+                    val str = alarmList[position].userId + " has started to follow your account"
+                    commentTextView.text = str
+                }
             }
         }
     }

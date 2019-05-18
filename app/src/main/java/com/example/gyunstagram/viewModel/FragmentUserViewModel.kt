@@ -47,9 +47,9 @@ class FragmentUserViewModel(
         )
     }
 
-    fun getUserProfileUri() {
+    fun getUserProfileUri(userUid: String) {
         addDisposable(
-            profileRepository.getProfileImage()
+            profileRepository.getProfileImage(userUid)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { t: String? ->

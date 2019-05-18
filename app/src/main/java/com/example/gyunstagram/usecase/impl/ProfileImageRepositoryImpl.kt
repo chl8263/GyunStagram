@@ -11,10 +11,10 @@ class ProfileImageRepositoryImpl : ProfileImageRepository {
     private val fireStore : FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     private val uid : String by lazy { FirebaseAuth.getInstance().currentUser!!.uid}
 
-    override fun getProfileImage(): Observable<String> {
+    override fun getProfileImage(userUid: String): Observable<String> {
         return Observable.create{
             emitter ->
-            fireStore.collection(Const.FIRESTORE_COLLECTION_PROFILEIMAGE).document(uid).addSnapshotListener{documentSnapshot, firebaseFirestoreException ->
+            fireStore.collection(Const.FIRESTORE_COLLECTION_PROFILEIMAGE).document(userUid).addSnapshotListener{documentSnapshot, firebaseFirestoreException ->
                 if (documentSnapshot == null) return@addSnapshotListener
 
                 documentSnapshot.data?.let {

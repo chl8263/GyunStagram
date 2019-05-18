@@ -1,5 +1,6 @@
 package com.example.gyunstagram.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gyunstagram.core.BaseViewModel

@@ -47,6 +47,7 @@ class AlarmFragment : BaseFragment<FragmentDetailBinding,FragmentAlarmViewModel>
 
         viewModel.alarmData.observe(this, Observer {
             adapter.alarmList = it
+            adapter.notifyDataSetChanged()
         })
 
     }

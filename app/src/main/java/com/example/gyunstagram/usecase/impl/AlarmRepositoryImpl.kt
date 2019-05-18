@@ -12,7 +12,7 @@ import io.reactivex.Observable
 
 class AlarmRepositoryImpl : AlarmRepository{
 
-    lateinit var alarmList : ArrayList<AlarmDTO>
+    var alarmList = ArrayList<AlarmDTO>()
 
     val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
