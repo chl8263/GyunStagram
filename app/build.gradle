@@ -26,6 +26,7 @@ android {
     dataBinding {
         enabled = true
     }
+    googleServices { disableVersionCheck = true }
 }
 
 dependencies {
@@ -39,7 +40,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
-    // rxjava    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    // rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     // koin
@@ -51,6 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.google.firebase:firebase-storage:16.0.5'
     implementation 'com.google.firebase:firebase-firestore:18.0.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.2'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     //glide
