@@ -13,16 +13,16 @@ class CommentViewModel(private val repository: CommentRepositoryImpl) : BaseView
 
     private val _commentsData = MutableLiveData<ArrayList<ContentDTO.Comment>>()
 
-    val commentsData : LiveData<ArrayList<ContentDTO.Comment>>
+    val commentsData: LiveData<ArrayList<ContentDTO.Comment>>
         get() = _commentsData
 
-    fun getCommentsData(contentUid : String){
+    fun getCommentsData(contentUid: String) {
         addDisposable(
             repository.getCommentsData(contentUid)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{t: ArrayList<ContentDTO.Comment>? ->
-
+                .subscribe { t: ArrayList<ContentDTO.Comment>? ->
+                    _commentsData.postValue(t)
                 }
 
         )
