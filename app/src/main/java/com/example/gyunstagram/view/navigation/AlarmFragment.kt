@@ -4,6 +4,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseFragment
@@ -42,6 +43,11 @@ class AlarmFragment : BaseFragment<FragmentDetailBinding,FragmentAlarmViewModel>
     }
 
     override fun initDataBinding(view: View) {
+        viewModel.getAlarmData()
+
+        viewModel.alarmData.observe(this, Observer {
+            adapter.alarmList = it
+        })
 
     }
 

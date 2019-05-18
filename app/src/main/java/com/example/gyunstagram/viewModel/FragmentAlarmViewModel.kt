@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 class FragmentAlarmViewModel (val repository: AlarmRepositoryImpl) : BaseViewModel() {
 
-    val _alarmData = MutableLiveData<ArrayList<AlarmDTO>>()
+    private val _alarmData = MutableLiveData<ArrayList<AlarmDTO>>()
 
     val alarmData : LiveData<ArrayList<AlarmDTO>>
         get() = _alarmData
