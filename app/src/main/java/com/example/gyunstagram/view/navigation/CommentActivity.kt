@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityCommentBinding
+import com.example.gyunstagram.util.Const.COMMENT_ALARM
 import com.example.gyunstagram.util.Const.FIREBASE_COLLECTION_COMMENTS
 import com.example.gyunstagram.util.Const.FIREBASE_COLLECTION_IMAGES
 import com.example.gyunstagram.util.toast
 import com.example.gyunstagram.view.navigation.adapter.CommentRecyclerViewAdapter
 import com.example.gyunstagram.viewModel.CommentViewModel
+import com.example.gyunstagram.vo.AlarmDTO
 import com.example.gyunstagram.vo.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,6 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() {
 
     lateinit var contentUid : String
+    lateinit var destinationUid : String
 
     override val layoutResourceId: Int
         get() = R.layout.activity_comment
@@ -31,11 +34,13 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
 
     companion object {
         val COONTENTUID = "COONTENTUID"
+        val DESTINATIONUID = "DESTINATIONUID"
     }
 
     override fun initStartView() {
 
         contentUid = intent.getStringExtra(CommentActivity.COONTENTUID)
+        destinationUid = intent.getStringExtra(CommentActivity.DESTINATIONUID)
 
         viewDataBinding.viewModel = viewModel
 
@@ -56,11 +61,22 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
                 task ->
                 if(task.isCanceled) this.toast("DB error")
             }
-
+            commentAlarm(destinationUid, comment_edit_message.text.toString())
             comment_edit_message.setText("")
         }
 
 
+    }
+    fun commentAlarm (destinationUid : String, message : String){
+        var alarmDTO = AlarmDTO(
+            destinationUid = destinationUid,
+            userId = FirebaseAuth.getInstance().currentUser?.email,
+            uid = FirebaseAuth.getInstance().currentUser?.uid,
+            kind = COMMENT_ALARM,
+            timestamp = System.currentTimeMillis(),
+            message = message
+        )
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
     }
 
     override fun initDataBinding() {

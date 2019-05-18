@@ -71,6 +71,7 @@ class DetailViewFragment : BaseFragment<FragmentDetailBinding,FragmentDetailView
         if(event.type == "trance_comment_activity"){
             var intent = Intent(context,CommentActivity::class.java)
             intent.putExtra(CommentActivity.COONTENTUID, event.contentUid)
+            intent.putExtra(CommentActivity.DESTINATIONUID, event.destinationUid)
             context?.startActivity(intent)
         }
     }

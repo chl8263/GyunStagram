@@ -8,7 +8,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.gyunstagram.R
 import com.example.gyunstagram.util.Const.FIRESTORE_COLLECTION_PROFILEIMAGE
+import com.example.gyunstagram.vo.AlarmDTO
 import com.example.gyunstagram.vo.ContentDTO
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.item_comment.view.*
 
@@ -43,5 +45,6 @@ class CommentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
     }
 
-    inner class CustomViewHolder(var view : View) : RecyclerView.ViewHolder(view)
+
+    private  inner class CustomViewHolder(var view : View) : RecyclerView.ViewHolder(view)
 }

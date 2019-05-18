@@ -20,8 +20,10 @@ import com.example.gyunstagram.view.MainActivity
 import com.example.gyunstagram.view.navigation.AddPhotoActivity.Companion.PICK_IMAGE_FROM_ALBUM
 import com.example.gyunstagram.view.navigation.adapter.UserFragmentRecyclerViewadapter
 import com.example.gyunstagram.viewModel.FragmentUserViewModel
+import com.example.gyunstagram.vo.AlarmDTO
 import com.example.gyunstagram.vo.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_user.view.*
 import org.koin.android.ext.android.inject
@@ -100,7 +102,7 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
             t.followerCount?.let {
                 view.account_tv_follower_count.text = t.followerCount.toString()
                 if(t.followers.containsKey(myUid)) {
-                    view.account_btn_follow_signOut.text = getString(R.string.follow_cancel)
+                    view.account_btn_follow_signOut.text = getString(R.string.signout)
                     view.account_btn_follow_signOut.background.setColorFilter(ContextCompat.getColor(activity!!,R.color.colorLightGray),PorterDuff.Mode.MULTIPLY)
                 } else {
                     view.account_btn_follow_signOut.text = getString(R.string.follow_cancel)
@@ -113,6 +115,8 @@ class UserFragment : BaseFragment<FragmentUserBinding, FragmentUserViewModel>() 
             }
         })
     }
+
+
 
     override fun initAfterBinding(view: View) {
         if (myUid == destinationUid) {    //myPage

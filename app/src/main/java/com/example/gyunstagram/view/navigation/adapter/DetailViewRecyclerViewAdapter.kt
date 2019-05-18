@@ -10,7 +10,9 @@ import com.bumptech.glide.Glide
 import com.example.gyunstagram.R
 import com.example.gyunstagram.di.mainActivityStarterPart
 import com.example.gyunstagram.util.Const
+import com.example.gyunstagram.util.Const.FAVORITE_ALARM
 import com.example.gyunstagram.view.navigation.UserFragment
+import com.example.gyunstagram.vo.AlarmDTO
 import com.example.gyunstagram.vo.ContentDTO
 import com.example.gyunstagram.vo.MessageComment
 import com.example.gyunstagram.vo.MessageEvent
@@ -71,10 +73,19 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         viewHolder.detailviewitem_profile_image.setOnClickListener {
-           EventBus.getDefault().post(MessageEvent("userFragment",contentDtoList[position].uid.toString(),contentDtoList[position].userId.toString()))
+           EventBus.getDefault().post(
+               MessageEvent(
+                   eventName = "userFragment",
+                   destinationUid = contentDtoList[position].uid.toString(),
+                   userId = contentDtoList[position].userId.toString()))
         }
         viewHolder.detailViewItem_comment_imageView.setOnClickListener {
-            EventBus.getDefault().post(MessageComment("trance_comment_activity",contentDtoList[position].documentuid.toString()))
+            EventBus.getDefault().post(
+                MessageComment(
+                type = "trance_comment_activity",
+                contentUid = contentDtoList[position].documentuid.toString() ,
+                destinationUid = contentDtoList[position].uid.toString()
+            ))
         }
 
     }
@@ -91,10 +102,22 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
             }else {
                 contentDTO?.favoriteCount =contentDTO?.favoriteCount + 1
                 contentDTO?.favorite[uid!!] = true
+                favoriteAlarm(contentDtoList[position].uid!!)
             }
             transaction.set(tsDoc,contentDTO)
         }
     }
 
-    inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    fun favoriteAlarm (destinationUid : String){
+        var alarmDTO = AlarmDTO(
+            destinationUid = destinationUid,
+            userId = FirebaseAuth.getInstance().currentUser?.email,
+            uid = FirebaseAuth.getInstance().currentUser?.uid,
+            kind = FAVORITE_ALARM,
+            timestamp = System.currentTimeMillis()
+        )
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+    }
+
+    private  inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

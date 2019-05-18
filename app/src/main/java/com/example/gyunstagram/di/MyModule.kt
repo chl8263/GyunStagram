@@ -2,10 +2,7 @@ package com.example.gyunstagram.di
 
 import com.example.gyunstagram.usecase.impl.*
 import com.example.gyunstagram.view.CustomProgressDialog
-import com.example.gyunstagram.view.navigation.adapter.CommentRecyclerViewAdapter
-import com.example.gyunstagram.view.navigation.adapter.DetailViewRecyclerViewAdapter
-import com.example.gyunstagram.view.navigation.adapter.GridFragmentRecyclerViewAdapter
-import com.example.gyunstagram.view.navigation.adapter.UserFragmentRecyclerViewadapter
+import com.example.gyunstagram.view.navigation.adapter.*
 import com.example.gyunstagram.viewModel.*
 import com.example.gyunstagram.vo.ContentDTO
 import org.koin.android.ext.koin.androidContext
@@ -35,6 +32,9 @@ var repositoryPart = module {
     factory {
         CommentRepositoryImpl()
     }
+    factory {
+        AlarmRepositoryImpl()
+    }
 
 }
 
@@ -50,6 +50,9 @@ var recyclerViewAdapterPart = module {
     }
     single {
         CommentRecyclerViewAdapter()
+    }
+    single {
+        AlarmRecyclerViewAdapter()
     }
 }
 
@@ -73,7 +76,7 @@ var viewModelPart = module {
         FragmentUserViewModel(get(),get(),get())
     }
     viewModel {
-        FragmentAlarmViewModel()
+        FragmentAlarmViewModel(get())
     }
     viewModel {
         CommentViewModel(get())

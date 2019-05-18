@@ -1,6 +1,9 @@
 package com.example.gyunstagram.usecase.impl
 
 import com.example.gyunstagram.usecase.RequestFollowRepository
+import com.example.gyunstagram.util.Const
+import com.example.gyunstagram.util.Const.FOLLOW_ALARM
+import com.example.gyunstagram.vo.AlarmDTO
 import com.example.gyunstagram.vo.FollowDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,6 +34,7 @@ class RequestFollowRepositoryImpl : RequestFollowRepository {
             } else {
                 followDTO.followingCount = followDTO.followingCount + 1
                 followDTO.followers[destinationUid] = true
+                followerAlarm(destinationUid)
             }
             transaction.set(tsDocFollowing, followDTO)
             return@runTransaction
@@ -55,6 +59,7 @@ class RequestFollowRepositoryImpl : RequestFollowRepository {
             } else {
                 followDTO!!.followerCount = followDTO!!.followerCount + 1
                 followDTO!!.followers[myUid] = true
+                followerAlarm(destinationUid)
             }
             transaction.set(tsDocFollower, followDTO!!)
             return@runTransaction
@@ -74,4 +79,14 @@ class RequestFollowRepositoryImpl : RequestFollowRepository {
         }
     }
 
+    fun followerAlarm (destinationUid : String){
+        var alarmDTO = AlarmDTO(
+            destinationUid = destinationUid,
+            userId = FirebaseAuth.getInstance().currentUser?.email,
+            uid = FirebaseAuth.getInstance().currentUser?.uid,
+            kind = FOLLOW_ALARM,
+            timestamp = System.currentTimeMillis()
+        )
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+    }
 }

@@ -34,7 +34,7 @@ class GridFragmentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHo
         Glide.with(holder.itemView.context).load(contentDTOs[position].imageUrl).apply(RequestOptions().centerCrop()).into(imageView)
     }
 
-    inner class CustomViewHolder(var imageView: ImageView) : RecyclerView.ViewHolder(imageView)
+    private inner class CustomViewHolder(var imageView: ImageView) : RecyclerView.ViewHolder(imageView)
 
 
 }
