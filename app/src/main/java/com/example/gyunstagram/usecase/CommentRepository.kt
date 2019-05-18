@@ -4,5 +4,5 @@ import com.example.gyunstagram.vo.ContentDTO
 import io.reactivex.Observable
 
 interface CommentRepository {
-    fun getCommentsData () : Observable<ArrayList<ContentDTO.Cooment>>
+    fun getCommentsData (contentUid : String) : Observable<ArrayList<ContentDTO.Comment>>
 }

@@ -1,22 +1,20 @@
 package com.example.gyunstagram.view.navigation
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil.setContentView
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityCommentBinding
 import com.example.gyunstagram.util.Const.FIREBASE_COLLECTION_COMMENTS
 import com.example.gyunstagram.util.Const.FIREBASE_COLLECTION_IMAGES
 import com.example.gyunstagram.util.toast
+import com.example.gyunstagram.view.navigation.adapter.CommentRecyclerViewAdapter
 import com.example.gyunstagram.viewModel.CommentViewModel
 import com.example.gyunstagram.vo.ContentDTO
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_comment.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -29,19 +27,25 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
 
     override val viewModel: CommentViewModel by viewModel()
 
+    val adapter : CommentRecyclerViewAdapter by inject()
+
     companion object {
         val COONTENTUID = "COONTENTUID"
     }
 
     override fun initStartView() {
 
-        var contentUid = intent.getStringExtra(CommentActivity.COONTENTUID)
+        contentUid = intent.getStringExtra(CommentActivity.COONTENTUID)
 
-        viewModel.contentUid = contentUid
+        viewDataBinding.viewModel = viewModel
+
+
+        commentRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        commentRecyclerView.adapter = adapter
 
         comment_btn_send.setOnClickListener {
 
-            var comment  = ContentDTO.Cooment()
+            var comment  = ContentDTO.Comment()
             comment.userId = FirebaseAuth.getInstance().currentUser?.email
             comment.uid = FirebaseAuth.getInstance().currentUser?.uid
             comment.comment = comment_edit_message.text.toString()
@@ -60,7 +64,12 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
     }
 
     override fun initDataBinding() {
+        viewModel.getCommentsData(contentUid)
 
+        viewModel.commentsData.observe(this, Observer {
+            adapter.comments = it as ArrayList<ContentDTO.Comment>
+            adapter.notifyDataSetChanged()
+        })
     }
 
     override fun initAfterBinding() {

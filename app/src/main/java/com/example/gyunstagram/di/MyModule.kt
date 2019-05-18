@@ -2,6 +2,7 @@ package com.example.gyunstagram.di
 
 import com.example.gyunstagram.usecase.impl.*
 import com.example.gyunstagram.view.CustomProgressDialog
+import com.example.gyunstagram.view.navigation.adapter.CommentRecyclerViewAdapter
 import com.example.gyunstagram.view.navigation.adapter.DetailViewRecyclerViewAdapter
 import com.example.gyunstagram.view.navigation.adapter.GridFragmentRecyclerViewAdapter
 import com.example.gyunstagram.view.navigation.adapter.UserFragmentRecyclerViewadapter
@@ -31,6 +32,9 @@ var repositoryPart = module {
     factory {
         RequestFollowRepositoryImpl()
     }
+    factory {
+        CommentRepositoryImpl()
+    }
 
 }
 
@@ -43,6 +47,9 @@ var recyclerViewAdapterPart = module {
     }
     single {
         GridFragmentRecyclerViewAdapter()
+    }
+    single {
+        CommentRecyclerViewAdapter()
     }
 }
 
@@ -69,7 +76,7 @@ var viewModelPart = module {
         FragmentAlarmViewModel()
     }
     viewModel {
-        CommentViewModel()
+        CommentViewModel(get())
     }
 
 }

@@ -12,7 +12,7 @@ data class ContentDTO (
 
 
 ){
-    data class Cooment(
+    data class Comment(
         var uid : String ? = null,
         var userId : String ? = null,
         var comment : String ? = null,
