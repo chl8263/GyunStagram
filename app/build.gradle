@@ -49,16 +49,25 @@ dependencies {
     implementation 'org.koin:koin-androidx-scope:2.0.0-rc-2'
     implementation 'org.koin:koin-androidx-viewmodel:2.0.0-rc-2'
     //firebase
+    implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.google.firebase:firebase-storage:16.0.5'
     implementation 'com.google.firebase:firebase-firestore:18.0.0'
     implementation 'com.google.firebase:firebase-messaging:17.3.2'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
-
     //glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
-
     //eventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    // okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.0.0-alpha01'
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 }
 apply plugin: 'com.google.gms.google-services'
+

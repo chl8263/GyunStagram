@@ -14,6 +14,7 @@ import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityMainBinding
 import com.example.gyunstagram.util.Const
+import com.example.gyunstagram.util.Const.FIREBASE_COLLECTION_PUSHTOKENS
 import com.example.gyunstagram.util.toast
 import com.example.gyunstagram.view.navigation.*
 import com.example.gyunstagram.viewModel.MainViewModel
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,12 +51,33 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),1)
 
         EventBus.getDefault().register(this)
+
+        registerPushToken()
     }
 
     override fun initDataBinding() {
     }
 
     override fun initAfterBinding() {
+    }
+
+    fun registerPushToken(){
+
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
+            task ->
+            if(!task.isSuccessful){
+                this.toast("Firebase token get failed, you can't receive push message")
+                return@addOnCompleteListener
+            }
+
+            var pushToken = task.result?.token
+            var uid = FirebaseAuth.getInstance().currentUser?.uid
+            var map = mutableMapOf<String,Any>()
+
+            map["pushToken"] = pushToken!!
+            FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_PUSHTOKENS).document(uid!!).set(map)
+        }
+
     }
 
     fun replaceFragment(fragment : Fragment){

@@ -12,7 +12,7 @@
     >
         <ImageView
                 android:id="@+id/detailviewitem_profile_image"
-                android:src="@drawable/instargram"
+                android:src="@drawable/ic_instagram"
                 android:layout_margin="7.5dp"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
