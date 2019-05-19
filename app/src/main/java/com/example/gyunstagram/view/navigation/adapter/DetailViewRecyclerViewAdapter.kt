@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gyunstagram.R
 import com.example.gyunstagram.di.mainActivityStarterPart
+import com.example.gyunstagram.network.FcmPush
 import com.example.gyunstagram.util.Const
 import com.example.gyunstagram.util.Const.FAVORITE_ALARM
 import com.example.gyunstagram.view.navigation.UserFragment
@@ -117,6 +118,8 @@ class DetailViewRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHold
             timestamp = System.currentTimeMillis()
         )
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
+
     }
 
     private  inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view)

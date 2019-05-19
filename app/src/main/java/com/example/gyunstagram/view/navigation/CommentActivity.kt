@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gyunstagram.R
 import com.example.gyunstagram.core.BaseActivity
 import com.example.gyunstagram.databinding.ActivityCommentBinding
+import com.example.gyunstagram.network.FcmPush
 import com.example.gyunstagram.util.Const.COMMENT_ALARM
 import com.example.gyunstagram.util.Const.FIREBASE_COLLECTION_COMMENTS
 import com.example.gyunstagram.util.Const.FIREBASE_COLLECTION_IMAGES
@@ -63,6 +64,10 @@ class CommentActivity : BaseActivity<ActivityCommentBinding,CommentViewModel>() 
             }
             commentAlarm(destinationUid, comment_edit_message.text.toString())
             comment_edit_message.setText("")
+
+            var message = FirebaseAuth.getInstance().currentUser?.email + " Liked the press"
+            var fcmTest = FcmPush()
+            fcmTest.sendMessage(destinationUid , "알림 메세지 입니다." , message)
         }
 
 
