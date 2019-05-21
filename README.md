@@ -24,6 +24,6 @@ Notification  :  FCM
 ![architecture](./sow/architecture.png)
 
 ### Architecture
-![sample1](./sow/sample1.jpg){: width="50" height="130"}
-![sample2](./sow/sample2.jpg)
-![sample3](./sow/sample3.jpg)
+![sample1](./sow/sample1.jpg){: width="100" height="100"}
+![sample2](./sow/sample2.jpg){: width="100" height="100"}
+![sample3](./sow/sample3.jpg){: width="100" height="100"}
