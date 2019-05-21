@@ -24,4 +24,4 @@ Notification  :  FCM
 ![architecture](./sow/architecture.png)
 
 ### Architecture
-<img src="./sow/sample1.jpg" width="10" height="10">
+<img src="./sow/sample1.jpg" width="300" height="300">
