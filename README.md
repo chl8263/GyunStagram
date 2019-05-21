@@ -10,7 +10,7 @@ Architecture  :  MVVM
 
 reactive      :  Rxjava , LiveData
 
-DI            :  KOIN 2.0
+DI            :  Koin 2.0
 
 DB            :  Firebase
 
