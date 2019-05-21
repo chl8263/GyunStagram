@@ -22,3 +22,8 @@ Notification  :  FCM
 ### Architecture
 
 ![architecture](./sow/architecture.png)
+
+### Architecture
+![sample1](./sow/sample1.jpg)
+![sample2](./sow/sample2.jpg)
+![sample3](./sow/sample3.jpg)
