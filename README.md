@@ -8,7 +8,7 @@ language      :  Kotlin
 
 Architecture  :  MVVM
 
-reactive      :  Rxjava , LiveData
+Reactive      :  Rxjava , LiveData
 
 DI            :  Koin 2.0
 
