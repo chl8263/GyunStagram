@@ -24,6 +24,5 @@ Notification  :  FCM
 ![architecture](./sow/architecture.png)
 
 ### InApp
-<center><img src="./sow/sample1.jpg" width="300" height="700"></center>
 <center><img src="./sow/sample2.jpg" width="300" height="700"></center>
 <center><img src="./sow/sample3.jpg" width="300" height="700"></center>
